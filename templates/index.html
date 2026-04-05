@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Global Watch</title>
+
+    <!-- ⏱ Auto Refresh every 30 sec -->
+    <meta http-equiv="refresh" content="30">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #38bdf8;
+        }
+
+        .news-container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .news-item {
+            padding: 15px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .time {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+
+        .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .sentiment {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .bullish {
+            color: #22c55e;
+        }
+
+        .bearish {
+            color: #ef4444;
+        }
+
+        .neutral {
+            color: #eab308;
+        }
+
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="news-container">
+        <h1>🌍 Global News Watcher</h1>
+
+        {% for item in news %}
+        <div class="news-item">
+
+            <!-- 🕒 Time -->
+            <div class="time">
+                {{ item.pub_date.strftime("%d %b %H:%M") }}
+            </div>
+
+            <!-- 📰 Title -->
+            <div class="title">
+                {{ item.title }}
+            </div>
+
+            <!-- 🧠 Sentiment -->
+            <div class="sentiment 
+                {% if "Bullish" in item.sentiment %}bullish
+                {% elif "Bearish" in item.sentiment %}bearish
+                {% else %}neutral{% endif %}">
+                {{ item.sentiment }}
+            </div>
+
+            <!-- 🔗 Link -->
+            <a href="{{ item.link }}" target="_blank">
+                Read more →
+            </a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>
